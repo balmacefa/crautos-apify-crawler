@@ -1,12 +1,18 @@
-# CheerioCrawler project
+# crautos-apify-crawler
 
-This template is a production ready boilerplate for developing with `CheerioCrawler`.
-Use this to bootstrap your projects using the most up-to-date code.
+The purpose of this crawler is to fetch all the data from the 'used car category' to send it later to an ELK stack for furder analysis.
 
-If you're looking for examples or want to learn more visit:
-- [Tutorial](https://sdk.apify.com/docs/guides/getting-started#cheeriocrawler-aka-jquery-crawler) 
-- [Documentation](https://sdk.apify.com/docs/api/cheerio-crawler) 
-- [Examples](https://sdk.apify.com/docs/examples/cheerio-crawler) 
+- Depreciation
+- Cost per km
+- Buy recommendation
+
+filter by:
+
+- Automaker
+- Model
+- Year
+- Motor CC
+- ....
 
 ## Documentation reference
 
