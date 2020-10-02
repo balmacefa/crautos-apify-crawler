@@ -53,7 +53,6 @@ exports.handleList = async ({ page }, requestQueue) => {
             transformRequestFunction: request => {
                 request.userData.label = 'LIST';
                 request.useExtendedUniqueKey = true;
-                request.noRetry = true;
                 return request;
             }
         });
@@ -74,18 +73,26 @@ exports.handleDetail = async ({ page, request }, requestQueue) => {
 
         for (var i = 1; i <= 15; i++) {
             //get the table info
-            data[table.rows[i].cells[0].innerHTML.trim()] = table.rows[i].cells[1].innerHTML.trim();
+            if(table.rows[i]){
+                data[table.rows[i].cells[0].innerHTML.trim()] = table.rows[i].cells[1].innerHTML.trim();
+            }
         }
-
-        data['visto'] = table.rows[16].cells[0].innerHTML.trim().match(/\d+/g).join('');
-
-        data['detalles'] = table.rows[17].cells[0].innerHTML.trim();
+        
+        if(table.rows[16]){
+            data['visto'] = table.rows[16].cells[0].innerHTML.trim().match(/\d+/g).join('');
+        }
+        
+        if(table.rows[17]){
+            data['detalles'] = table.rows[17].cells[0].innerHTML.trim();
+        }
 
         // sanatize Cicindrada and Kilometraje
         // Remove cc and ,
-        data['Cilindrada'] = data['Cilindrada'].match(/\d+/g).join('');
+        if(data['Cilindrada']){
+            data['Cilindrada'] = data['Cilindrada'].match(/\d+/g).join('');
+        }
         //remove KM and ,
-        if (data['Kilometraje' !== 'ND']) {
+        if (data['Kilometraje'] && data['Kilometraje'] !== 'ND') {
             data['Kilometraje'] = data['Kilometraje'].match(/\d+/g).join('');
         }
 

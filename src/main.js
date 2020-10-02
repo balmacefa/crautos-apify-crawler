@@ -14,7 +14,7 @@ Apify.main(async () => {
 
     const requestQueue = await Apify.openRequestQueue();
     await requestQueue.addRequest({url:baseUrl});
-    const proxyConfiguration = await Apify.createProxyConfiguration();
+    // const proxyConfiguration = await Apify.createProxyConfiguration();
 
 
     let detailCount = 1;
@@ -22,7 +22,7 @@ Apify.main(async () => {
 
     const crawler = new Apify.PuppeteerCrawler({
         requestQueue,
-        proxyConfiguration,
+        // proxyConfiguration,
         useSessionPool: true,
         persistCookiesPerSession: true,
         launchPuppeteerOptions: {
