@@ -14,22 +14,23 @@ Apify.main(async () => {
 
     const requestQueue = await Apify.openRequestQueue();
     await requestQueue.addRequest({url:baseUrl});
+    const proxyConfiguration = await Apify.createProxyConfiguration();
+
 
     let detailCount = 1;
     let listCount = 1;
 
     const crawler = new Apify.PuppeteerCrawler({
         requestQueue,
+        proxyConfiguration,
         useSessionPool: true,
         persistCookiesPerSession: true,
-        // Be nice to the websites.
-        // Remove to unleash full power.
-        maxConcurrency: 50,
-        // Increase the timeout for processing of each page.
-        handlePageTimeoutSecs: 30,
-        // Limit to 10 requests per one crawl
-        maxRequestsPerCrawl: 4,
-
+        launchPuppeteerOptions: {
+            // Chrome with stealth should work for most websites.
+            // If it doesn't, feel free to remove this.
+            useChrome: true,
+            stealth: true,
+        },
         handlePageFunction: async (puppePageInput) => {
             const { url, userData: { label } } = puppePageInput.request;
             switch (label) {
